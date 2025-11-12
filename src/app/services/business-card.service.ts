@@ -41,5 +41,17 @@ export class BusinessCardService {
   delete(id: number): Observable<void>{
     return this.http.delete<void>(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_DELETE}/${id}`);
   }
+
+  exportCsv(): Observable<Blob> {
+    return this.http.get(this.apiUrl + ApiPath.BUSINESS_CARDS_EXPORT_CSV, {
+      responseType: 'blob'
+    });
+  }
+
+  exportXml(): Observable<Blob> {
+    return this.http.get(this.apiUrl + ApiPath.BUSINESS_CARDS_EXPORT_XML, {
+      responseType: 'blob'
+    });
+  }
 }
 

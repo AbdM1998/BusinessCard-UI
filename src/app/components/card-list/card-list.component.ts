@@ -57,4 +57,33 @@ export class CardListComponent {
   closeCardView() {
   this.selectedCard = null;
 }
+
+exportCsv(): void {
+    this.cardService.exportCsv().subscribe({
+      next: (data) => {
+        const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
+        this.downloadFile(blob , 'business_cards.csv');
+      }
+    });
+  }
+
+  exportXml(): void {
+    this.cardService.exportXml().subscribe({
+      next: (data) => {
+        const blob = new Blob([data], { type: 'application/xml;charset=utf-8;' });
+        this.downloadFile(blob , 'business_cards.xml');
+      }
+    });
+  }
+
+    private downloadFile(blob: Blob , filename: string ): void {
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', filename);
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  }
 }

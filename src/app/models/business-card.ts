@@ -2,20 +2,20 @@ export interface BusinessCard {
     id?: number;
     name: string;
     gender: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     phone : string;
     email: string;
-    photo : string;
+    photo? : string;
     address : string;
 }
 
 export interface BusinessCardCreate {
     name: string;
     gender: string;
-    dateOfBirth: Date;
+    dateOfBirth: string;
     phone : string;
     email: string;
-    photo : string;
+    photo? : string;
     address : string;
 }  
 

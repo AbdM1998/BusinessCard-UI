@@ -1,9 +1,11 @@
 <div class="container mt-4">
     <div class="card">
         <div>
-            <h2>Business Cards</h2>
+            <h2 class="text-center">Business Cards</h2>
             <div class="header-actions">
                 <button class="btn btn-primary" (click)="toggleFilters()">Filters</button>
+                 <button  class="btn btn-primary" (click)="exportCsv()">Export CSV</button>
+                <button  class="btn btn-primary" (click)="exportXml()">Export XML</button>
             </div>
         </div>
         <div class="card-content">
@@ -44,7 +46,7 @@
             </form>
 
 
-            <table class="table">
+            <table class="table shadow-lg">
                 <thead>
                     <tr>
                         <th scope="col">Photo</th>
