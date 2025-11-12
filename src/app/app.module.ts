@@ -2,10 +2,12 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CardFormComponent } from './components/card-form/card-form.component';
 import { CardListComponent } from './components/card-list/card-list.component';
 
+import {  HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BusinessCardService } from './services/business-card.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -14,9 +16,11 @@ import { CardListComponent } from './components/card-list/card-list.component';
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule
+    HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
-  providers: [],
+  providers: [BusinessCardService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

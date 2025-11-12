@@ -1,1 +1,103 @@
-<p>card-list works!</p>
+<div class="container mt-4">
+    <div class="card">
+        <div>
+            <h2>Business Cards</h2>
+            <div class="header-actions">
+                <button class="btn btn-primary" (click)="toggleFilters()">Filters</button>
+            </div>
+        </div>
+        <div class="card-content">
+
+            <form *ngIf="showFilters" class="row">
+                <div class="col-md-3">
+                    <label class="form-label">Name</label>
+                    <input type="text" name="name" class="form-control" [(ngModel)]="filterOptions.name"
+                        placeholder="Name">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Gender</label>
+                    <select name="gender" class="form-control" [(ngModel)]="filterOptions.gender">
+                        <option value="">All</option>
+                        <option value="Male">Male</option>
+                        <option value="Female">Female</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+
+                <div class="col-md-3">
+                    <label class="form-label">Email</label>
+                    <input type="email" name="email" class="form-control" [(ngModel)]="filterOptions.email"
+                        placeholder="Email">
+                </div>
+
+                <div class="col-md-2">
+                    <label class="form-label">Phone</label>
+                    <input type="tel" name="phone" class="form-control" [(ngModel)]="filterOptions.phone"
+                        placeholder="Phone">
+                </div>
+
+                <div class="col-md-2 d-flex gap-2 align-items-end">
+                    <button type="button" class="btn btn-primary" (click)="applyFilter()">Apply</button>
+                    <button type="button" class="btn btn-secondary" (click)="clearFilters()">Clear</button>
+                </div>
+            </form>
+
+
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Photo</th>
+                        <th scope="col">Name</th>
+                        <th scope="col">Gender</th>
+                        <th scope="col">Date of Birth</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let card of filteredCards">
+                        <td>
+                            <img *ngIf="card.photo" [src]="card.photo" class="card-photo" alt="Photo">
+                            <span *ngIf="!card.photo">&#128100;</span>
+                        </td>
+                        <td>{{ card.name }}</td>
+                        <td>{{ card.gender }}</td>
+                        <td>{{ card.dateOfBirth}}</td>
+                        <td>{{ card.email }}</td>
+                        <td>{{ card.phone }}</td>
+                        <td class="d-flex gap-2">
+                            <button class="btn btn-danger btn-sm" (click)="deleteCard(card.id!)">Delete</button>
+                            <button class="btn btn-secondary  btn-sm" (click)="viewCard(card.id!)">View</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div *ngIf="filteredCards.length === 0">
+                <p>No business cards found</p>
+            </div>
+
+        </div>
+        <div *ngIf="selectedCard" class="card-preview-overlay">
+            <div class="card-preview">
+                <div class="card" style="width: 18rem;">
+                    <img *ngIf="selectedCard.photo" class="card-img-top" [src]="selectedCard.photo" alt="Card image">
+                    <img *ngIf="!selectedCard.photo" class="card-img-top" alt="No Photo">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ selectedCard.name }}</h5>
+                        <p class="card-text">
+                            Gender: {{ selectedCard.gender }}<br>
+                            Date of Birth: {{ selectedCard.dateOfBirth }}<br>
+                            Email: {{ selectedCard.email }}<br>
+                            Phone: {{ selectedCard.phone }}<br>
+                            Address: {{ selectedCard.address }}
+                        </p>
+                        <button class="btn btn-secondary" (click)="closeCardView()">Close</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
