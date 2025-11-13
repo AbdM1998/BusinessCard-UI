@@ -297,3 +297,29 @@
   .title {
     font-weight: bold;
 }
+
+.tab-container {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab {
+  padding: 12px 20px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #555;
+  transition: color 0.3s, border-bottom 0.3s;
+  border-bottom: 3px solid transparent;
+}
+
+.tab.active {
+  color: #007bff;
+  border-bottom: 3px solid #007bff;
+}
+
+.tab:hover {
+  color: #0056b3;
+}
+
+

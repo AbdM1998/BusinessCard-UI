@@ -1,0 +1,26 @@
+.card{
+    border-radius: 15px;
+}
+.card-preview-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0,0,0,0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1050;
+}
+
+.card-preview {
+  background: #fff;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+
+.btn{
+    margin: 2px;
+}

@@ -12,7 +12,7 @@ import { BusinessCardService } from './services/business-card.service';
   declarations: [
     AppComponent,
     CardFormComponent,
-    CardListComponent
+    CardListComponent,
   ],
   imports: [
     BrowserModule,

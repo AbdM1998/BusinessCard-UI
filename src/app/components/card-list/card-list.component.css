@@ -1,4 +1,6 @@
-
+.container{
+    width: 1500px;
+}
 .btn{
     margin: 2px;
 }

@@ -1,7 +1,22 @@
 <div class="app-container">
         <div class="content">
         <span class="title">Business Card Management System</span>
+        <div class="tab-container">
+          <div 
+            class="tab" 
+            [class.active]="showAddCard" 
+          (click)="toggleAddCard()">
+            Add Card
+          </div>
+          <div 
+            class="tab" 
+            [class.active]="!showAddCard" 
+            (click)="toggleCardList()">
+            View Cards
+          </div>
+        </div>
+        <app-card-form *ngIf="showAddCard"></app-card-form>
+        <app-card-list *ngIf="showCardList"></app-card-list>
       </div>
-      <app-card-list></app-card-list>
       </div>
   

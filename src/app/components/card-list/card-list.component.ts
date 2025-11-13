@@ -58,8 +58,16 @@ export class CardListComponent {
   this.selectedCard = null;
 }
 
-exportCsv(): void {
-    this.cardService.exportCsv().subscribe({
+onExportFormatChange(event: any , id : any): void {
+    const format = event.target.value;
+    if (format === 'csv') {
+      this.exportCsv(id);
+    } else if (format === 'xml') {
+      this.exportXml(id);
+    }
+  }
+exportCsv(id: any = null): void {
+    this.cardService.exportCsv(id).subscribe({
       next: (data) => {
         const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
         this.downloadFile(blob , 'business_cards.csv');
@@ -67,8 +75,8 @@ exportCsv(): void {
     });
   }
 
-  exportXml(): void {
-    this.cardService.exportXml().subscribe({
+  exportXml(id: any = null): void {
+    this.cardService.exportXml(id).subscribe({
       next: (data) => {
         const blob = new Blob([data], { type: 'application/xml;charset=utf-8;' });
         this.downloadFile(blob , 'business_cards.xml');

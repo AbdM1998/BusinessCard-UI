@@ -4,8 +4,8 @@
             <h2 class="text-center">Business Cards</h2>
             <div class="header-actions">
                 <button class="btn btn-primary" (click)="toggleFilters()">Filters</button>
-                 <button  class="btn btn-primary" (click)="exportCsv()">Export CSV</button>
-                <button  class="btn btn-primary" (click)="exportXml()">Export XML</button>
+                <button class="btn btn-primary" (click)="exportCsv()">Export CSV</button>
+                <button class="btn btn-primary" (click)="exportXml()">Export XML</button>
             </div>
         </div>
         <div class="card-content">
@@ -72,12 +72,18 @@
                         <td class="d-flex gap-2">
                             <button class="btn btn-danger btn-sm" (click)="deleteCard(card.id!)">Delete</button>
                             <button class="btn btn-secondary  btn-sm" (click)="viewCard(card.id!)">View</button>
+                            <select class="form-control form-select-sm"
+                                (change)="onExportFormatChange($event, card.id!)">
+                                <option value="">Export to</option>
+                                <option value="csv">Export as CSV</option>
+                                <option value="xml">Export as XML</option>
+                            </select>
                         </td>
                     </tr>
                 </tbody>
             </table>
 
-            <div *ngIf="filteredCards.length === 0">
+            <div *ngIf="filteredCards.length === 0" class="text-center">
                 <p>No business cards found</p>
             </div>
 
