@@ -48,20 +48,24 @@ export class BusinessCardService {
     return this.http.delete<void>(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_DELETE}/${id}`);
   }
 
-  exportCsv(id: any = null): Observable<Blob> {
+  exportCsv(id: any = null , pageNumber: number, pageSize: number): Observable<Blob> {
     return this.http.get(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_EXPORT_CSV}`, {
       responseType: 'blob',
         params: {
-        id: id || ''
+        id: id || '',
+        pageNumber: pageNumber,
+        pageSize: pageSize
       }
     });
   }
 
-  exportXml(id: any= null): Observable<Blob> {
+  exportXml(id: any= null, pageNumber: number, pageSize: number): Observable<Blob> {
     return this.http.get(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_EXPORT_XML}`, {
       responseType: 'blob',
       params: {
-        id: id || ''
+        id: id || '',
+        pageNumber: pageNumber,
+        pageSize: pageSize
       }
     });
   }

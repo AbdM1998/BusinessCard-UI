@@ -115,8 +115,8 @@ onExportFormatChange(event: any , id : any): void {
     }
   }
 exportCsv(id: any = null): void {
-    this.cardService.exportCsv(id).subscribe({
-      next: (data) => {
+        this.cardService.exportCsv(id, this.pageNumber, this.pageSize).subscribe({
+          next: (data) => {
         const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
         this.downloadFile(blob , 'business_cards.csv');
       },
@@ -132,7 +132,7 @@ exportCsv(id: any = null): void {
   }
 
   exportXml(id: any = null): void {
-    this.cardService.exportXml(id).subscribe({
+      this.cardService.exportXml(id, this.pageNumber, this.pageSize).subscribe({
       next: (data) => {
         const blob = new Blob([data], { type: 'application/xml;charset=utf-8;' });
         this.downloadFile(blob , 'business_cards.xml');
