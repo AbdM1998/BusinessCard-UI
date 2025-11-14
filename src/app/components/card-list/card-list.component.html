@@ -81,6 +81,34 @@
                         </td>
                     </tr>
                 </tbody>
+                <tfoot>
+                    <nav aria-label="...">
+                    <ul class="pagination">
+                          <li class="page-item" [class.disabled]="pageNumber === 1">
+                                <button class="page-link" (click)="prevPage()">Previous</button>
+                            </li>
+                            <li class="page-item"
+                                *ngFor="let page of [].constructor(totalPages); let i = index"
+                                [class.active]="pageNumber === i + 1">
+                                <button class="page-link" (click)="goToPage(i + 1)">
+                                    {{ i + 1 }}
+                                </button>
+                            </li>
+                                    <li class="page-item" [class.disabled]="pageNumber === totalPages">
+                                    <button class="page-link" (click)="nextPage()">Next</button>
+                        </li>
+                        <li class="page-item">
+                            <select class="form-control pagination" (change)="onPageSizeChange($event)">
+                                <option *ngFor="let size of pageSizeOptions" [value]="size" [selected]="size === pageSize">
+                                    {{ size }}
+                                </option>
+                            </select>
+                        </li>
+                    </ul>
+                     
+                    </nav>
+
+                </tfoot>
             </table>
 
             <div *ngIf="filteredCards.length === 0" class="text-center">

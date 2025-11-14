@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { environment } from 'src/environments/environment';
-import { BusinessCard, BusinessCardCreate, BusinessCardFilter } from '../models/business-card';
+import { BusinessCard, BusinessCardCreate, BusinessCardFilter, PagedResult } from '../models/business-card';
 import { Observable } from 'rxjs';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { ApiPath } from 'src/utils/api/paths'; 
@@ -13,8 +13,13 @@ export class BusinessCardService {
   private apiUrl = environment.apiUrl;
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<BusinessCard[]>{
-    return this.http.get<BusinessCard[]>(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_GET_ALL}`);
+  getAll(pageNumber: number, pageSize: number): Observable<PagedResult<BusinessCard>>{
+    return this.http.get<PagedResult<BusinessCard>>(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_GET_ALL}`, {
+      params: {
+        pageNumber: pageNumber,
+        pageSize: pageSize
+      }
+    });
   }
   getById(id: number): Observable<BusinessCard>{
     return this.http.get<BusinessCard>(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_GET_BY_ID}/${id}`);

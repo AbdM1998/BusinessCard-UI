@@ -1,3 +1,10 @@
+export interface PagedResult<T> {
+    cards: T[];
+    pageNumber: number;
+    pageSize: number;
+    totalPages : number;
+}
+
 export interface BusinessCard {
     id?: number;
     name: string;
