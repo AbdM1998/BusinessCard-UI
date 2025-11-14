@@ -60,8 +60,11 @@ cardForm!: FormGroup;
 
       const reader = new FileReader();
       reader.onload = (e: any) => {
-        this.photoPreview = e.target.result;
-      };
+      this.photoPreview = e.target.result;
+      this.cardForm.patchValue({
+        photo: this.photoPreview
+      });
+    };
       reader.readAsDataURL(file);
   }
 
@@ -107,7 +110,10 @@ cardForm!: FormGroup;
       address: card.address,
       photo: card.photo
     });
+    console.log(this.cardForm.value);
     if (card.photo) {
+      console.log(card.photo);
+      console.log(this.photoPreview);
       this.photoPreview = card.photo;
     }
     this.showCardPreview = !this.showCardPreview;
