@@ -30,6 +30,7 @@ export interface BusinessCardCreate {
 export interface BusinessCardFilter {
     name?: string;
     gender?: string;
+    dateOfBirth?: string;
     email?: string;
     phone?: string;
 }

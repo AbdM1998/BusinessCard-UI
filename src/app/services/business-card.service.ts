@@ -29,6 +29,7 @@ export class BusinessCardService {
     let params = new HttpParams();
     
     if (filter.name) params = params.set('name', filter.name);
+    if (filter.dateOfBirth) params = params.set('dateOfBirth', filter.dateOfBirth);
     if (filter.gender) params = params.set('gender', filter.gender);
     if (filter.email) params = params.set('email', filter.email);
     if (filter.phone) params = params.set('phone', filter.phone);
