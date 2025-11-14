@@ -21,14 +21,17 @@ export class CardListComponent {
   pageNumber = 1;
   pageSizeOptions = [5, 10, 20, 50];
 
+  isLoading: boolean = false;
 
   constructor(private cardService: BusinessCardService) { }
 
   ngOnInit(): void {
     this.loadCards();
+
   }
 
   loadCards(): void {
+    this.isLoading = true;
     this.cardService.getAll(this.pageNumber , this.pageSize).subscribe({
       next: (data : PagedResult<BusinessCard>) => {
         this.cards = data.cards  || [];
@@ -36,8 +39,10 @@ export class CardListComponent {
         this.pageNumber = data.pageNumber;
         this.pageSize = data.pageSize;
         this.totalPages = data.totalPages;
+        this.isLoading = false;
       },
     error: (err) => {
+      this.isLoading = false;
       console.error(err);
       Swal.fire({
         icon: 'error',
@@ -48,12 +53,16 @@ export class CardListComponent {
     });
   }
   applyFilter(): void {
+    this.isLoading = true;
+
     this.cardService.filter(this.filterOptions).subscribe({
       next: (data) => {
         this.filteredCards = data;
         this.cards = data;
+        this.isLoading = false;
       },
     error: (err) => {
+      this.isLoading = false;
       console.error(err);
       Swal.fire({
         icon: 'error',
