@@ -49,14 +49,20 @@ export class BusinessCardService {
   }
 
   exportCsv(id: any = null): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_EXPORT_CSV}/${id}`, {
-      responseType: 'blob'
+    return this.http.get(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_EXPORT_CSV}`, {
+      responseType: 'blob',
+        params: {
+        id: id || ''
+      }
     });
   }
 
   exportXml(id: any= null): Observable<Blob> {
-    return this.http.get(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_EXPORT_XML}/${id}`, {
-      responseType: 'blob'
+    return this.http.get(`${this.apiUrl}${ApiPath.BUSINESS_CARDS_EXPORT_XML}`, {
+      responseType: 'blob',
+      params: {
+        id: id || ''
+      }
     });
   }
   
