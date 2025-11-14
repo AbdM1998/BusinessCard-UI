@@ -3,6 +3,7 @@ import { FormGroup } from '@angular/forms';
 import { BusinessCardCreate } from 'src/app/models/business-card';
 import { FormBuilder, Validators } from '@angular/forms';
 import { BusinessCardService } from 'src/app/services/business-card.service';
+import Swal from 'sweetalert2';
 @Component({
   selector: 'app-card-form',
   templateUrl: './card-form.component.html',
@@ -42,9 +43,27 @@ cardForm!: FormGroup;
   if (file) {
     if (file.name.endsWith('.xml') || file.name.endsWith('.csv')) {
       this.handleFileImport(file);
+    }else{
+     this.handlePhotoUpload(file);
     } 
   }
 }
+  handlePhotoUpload(file: any) {
+      if (file.size > 1024 * 1024) {
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text: 'Photo size should not exceed 1MB.',
+        });
+        return;
+      }
+
+      const reader = new FileReader();
+      reader.onload = (e: any) => {
+        this.photoPreview = e.target.result;
+      };
+      reader.readAsDataURL(file);
+  }
 
   onFileDrop(event: DragEvent): void {
     event.preventDefault();
@@ -68,7 +87,11 @@ cardForm!: FormGroup;
         }
       } catch (error) {
         console.error('Error parsing file:', error);
-        alert('Error parsing file. Please check the format.');
+        Swal.fire({
+          icon: 'error',
+          title: 'Oops...',
+          text:'Error parsing file. Please check the format.',
+        });
       }
     }
   }
@@ -104,7 +127,11 @@ cardForm!: FormGroup;
 
     this.cardService.create(cardData).subscribe({
       next: (response: any) => {
-        alert('Business card created successfully!');
+        Swal.fire({
+          icon: 'success',
+          title: 'Success',
+          text: 'Business card created successfully!',
+        });
         this.resetForm();
         this.closeCardView();
       }
@@ -129,7 +156,11 @@ submitAllImportedCards(): void {
     if(this.importedFile) {
       this.cardService.importFile(this.importedFile).subscribe({
         next: (response: any) => {
-          alert('Imported business cards successfully!');
+          Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Imported business cards successfully!',
+          });
           this.resetForm();
           this.closeImportedList();
         }

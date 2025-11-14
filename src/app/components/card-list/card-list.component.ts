@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { BusinessCard, BusinessCardFilter, PagedResult } from 'src/app/models/business-card';
 import { BusinessCardService } from 'src/app/services/business-card.service';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-card-list',
@@ -35,7 +36,15 @@ export class CardListComponent {
         this.pageNumber = data.pageNumber;
         this.pageSize = data.pageSize;
         this.totalPages = data.totalPages;
-      }
+      },
+    error: (err) => {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err?.error?.message || err?.message || 'Failed to load cards.',
+      });
+    }
     });
   }
   applyFilter(): void {
@@ -43,7 +52,15 @@ export class CardListComponent {
       next: (data) => {
         this.filteredCards = data;
         this.cards = data;
-      }
+      },
+    error: (err) => {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err?.error?.message || err?.message || 'Failed to filter cards.',
+      });
+    }
     });
   }
   clearFilters(): void {
@@ -53,8 +70,21 @@ export class CardListComponent {
   deleteCard(id: number): void {
     this.cardService.delete(id).subscribe({
       next: () => {
+        Swal.fire({
+          icon: 'success',
+          title: 'Filter Applied',
+          text: 'Card deleted successfully!',
+        });
         this.loadCards();
-      }
+      },
+    error: (err) => {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err?.error?.message || err?.message || 'Failed to delete cards.',
+      });
+    }
     });
   }
   toggleFilters(): void {
@@ -80,7 +110,15 @@ exportCsv(id: any = null): void {
       next: (data) => {
         const blob = new Blob([data], { type: 'text/csv;charset=utf-8;' });
         this.downloadFile(blob , 'business_cards.csv');
-      }
+      },
+    error: (err) => {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err?.error?.message || err?.message || 'Failed to export cards.',
+      });
+    }
     });
   }
 
@@ -89,7 +127,15 @@ exportCsv(id: any = null): void {
       next: (data) => {
         const blob = new Blob([data], { type: 'application/xml;charset=utf-8;' });
         this.downloadFile(blob , 'business_cards.xml');
-      }
+      },
+    error: (err) => {
+      console.error(err);
+      Swal.fire({
+        icon: 'error',
+        title: 'Oops...',
+        text: err?.error?.message || err?.message || 'Failed to export cards.',
+      });
+    }
     });
   }
 
